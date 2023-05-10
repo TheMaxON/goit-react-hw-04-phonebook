@@ -11,7 +11,6 @@ const App = () => {
   useEffect(() => {
     if (localStorage.getItem('contacts')) {
       setContacts(JSON.parse(localStorage.getItem('contacts')));
-      console.log('component did mount');
     }
   }, []);
 
@@ -19,7 +18,6 @@ const App = () => {
     if (contacts.length > 0) {
       localStorage.setItem('contacts', JSON.stringify(contacts));
     }
-    console.log('component did update ', contacts);
   }, [contacts]);
 
   const addContact = newContact => {
