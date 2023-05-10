@@ -37,9 +37,12 @@ const App = () => {
   };
 
   const showFiltered = () => {
-    return contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-    );
+    if (contacts.length !== 0) {
+      return contacts.filter(contact =>
+        contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+      );
+    }
+    return contacts;
   };
 
   return (
