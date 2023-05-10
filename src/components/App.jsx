@@ -5,13 +5,21 @@ import { Filter } from './Filter/Filter';
 import { Section } from './Section/Section';
 
 const App = () => {
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem('contacts'))
-  );
+  const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    if (localStorage.getItem('contacts')) {
+      setContacts(JSON.parse(localStorage.getItem('contacts')));
+      console.log('component did mount');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (contacts.length > 0) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+    console.log('component did update ', contacts);
   }, [contacts]);
 
   const addContact = newContact => {
