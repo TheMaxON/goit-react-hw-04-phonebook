@@ -10,20 +10,17 @@ const App = () => {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (localStorage.getItem('contacts').length !== 0) {
+    if (localStorage.getItem('contacts')) {
       setContacts(JSON.parse(localStorage.getItem('contacts')));
-      console.log('first load', JSON.parse(localStorage.getItem('contacts')));
     }
   }, []);
 
   useEffect(() => {
     if (isFirstRender.current) {
-      console.log('first render');
       isFirstRender.current = false;
       return;
     }
     localStorage.setItem('contacts', JSON.stringify(contacts));
-    console.log('setting local storage', contacts);
   }, [contacts]);
 
   const addContact = newContact => {
