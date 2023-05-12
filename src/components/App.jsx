@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Input from './Form/Form';
 import { ContactsList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
@@ -7,17 +7,23 @@ import { Section } from './Section/Section';
 const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (localStorage.getItem('contacts')) {
+    if (localStorage.getItem('contacts').length !== 0) {
       setContacts(JSON.parse(localStorage.getItem('contacts')));
+      console.log('first load', JSON.parse(localStorage.getItem('contacts')));
     }
   }, []);
 
   useEffect(() => {
-    if (contacts.length > 0) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
+    if (isFirstRender.current) {
+      console.log('first render');
+      isFirstRender.current = false;
+      return;
     }
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+    console.log('setting local storage', contacts);
   }, [contacts]);
 
   const addContact = newContact => {

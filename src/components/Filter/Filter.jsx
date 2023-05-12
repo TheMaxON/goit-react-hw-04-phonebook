@@ -7,7 +7,6 @@ export const Filter = props => {
   const { updateFilter } = props;
 
   const changeFilter = e => {
-    e.preventDefault();
     const query = e.target.value;
     updateFilter(query);
   };
